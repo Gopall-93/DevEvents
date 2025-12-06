@@ -38,20 +38,35 @@ const BookingSchema = new Schema<IBooking>(
 
 // Pre-save hook to validate events exists before creating booking
 BookingSchema.pre('save', async function () {
+  // 1. Remove 'next' from arguments
   const booking = this as IBooking;
 
+  // Only validate eventId if it's new or modified
   if (booking.isModified('eventId') || booking.isNew) {
-    const eventExists = await Event.findById(booking.eventId).select('_id');
+    try {
+      // 2. Await the DB call directly
+      const eventExists = await Event.findById(booking.eventId).select('_id');
 
-    if (!eventExists) {
-      const error = new Error(`Event with ID ${booking.eventId} does not exist`);
-      error.name = 'ValidationError';
-      throw error;
+      if (!eventExists) {
+        const error = new Error(`Event with ID ${booking.eventId} does not exist`);
+        error.name = 'ValidationError';
+        // 3. Throw the error instead of returning next(error)
+        throw error;
+      }
+    } catch (err: any) {
+      // If we manually threw the ValidationError above, re-throw it
+      if (err.name === 'ValidationError') {
+        throw err;
+      }
+
+      // Otherwise, handle unexpected DB errors (like invalid ID format)
+      const validationError = new Error('Invalid event ID format or database error');
+      validationError.name = 'ValidationError';
+      throw validationError;
     }
   }
+  // 4. No need to call next() at the end. When the function finishes, Mongoose proceeds.
 });
-
-
 
 // Create index on eventId for faster queries
 BookingSchema.index({ eventId: 1 });

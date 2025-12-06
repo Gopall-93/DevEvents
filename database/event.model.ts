@@ -1,4 +1,5 @@
 import { Schema, model, models, Document } from 'mongoose';
+import { CallbackError } from 'mongoose';
 
 // TypeScript interface for Event document
 export interface IEvent extends Document {
@@ -110,27 +111,31 @@ const EventSchema = new Schema<IEvent>(
 );
 
 // Pre-save hook for slug generation and data normalization
-
-
-
-
+// Pre-save hook for slug generation and data normalization
 EventSchema.pre('save', function () {
-  const event = this as IEvent;
+  // 1. We don't need 'next' in the parameters
+  
+  // 2. 'this' needs to be cast to the Document type + your Interface
+  // Note: We use 'any' or specific casting because TypeScript struggles 
+  // to infer 'this' context inside Mongoose middleware automatically.
+  const event = this as unknown as IEvent;
 
+  // Generate slug only if title changed or document is new
   if (event.isModified('title') || event.isNew) {
     event.slug = generateSlug(event.title);
   }
 
+  // Normalize date to ISO format if it's not already
   if (event.isModified('date')) {
-    event.date = normalizeDate(event.date);
+    // If this throws an error, Mongoose catches it and stops the save
+    event.date = normalizeDate(event.date); 
   }
 
+  // Normalize time format (HH:MM)
   if (event.isModified('time')) {
     event.time = normalizeTime(event.time);
   }
 });
-
-
 
 // Helper function to generate URL-friendly slug
 function generateSlug(title: string): string {
