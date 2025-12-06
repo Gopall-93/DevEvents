@@ -1,0 +1,51 @@
+const EVENTS = [
+  {
+    image: "/images/event1.png",
+    title: "Tech Innovators Summit 2025",
+    sluge: "tech-innovators-summit-2025",
+    location: "San Francisco, CA",
+    date: "March 15, 2025",
+    time: "10:00 AM - 5:00 PM",
+  },
+  {
+    image: "/images/event2.png",
+    title: "Frontend Developers Meetup",
+    sluge: "frontend-developers-meetup",
+    location: "Bangalore, India",
+    date: "April 3, 2025",
+    time: "6:00 PM - 9:00 PM",
+  },
+  {
+    image: "/images/event3.png",
+    title: "AI & Machine Learning Expo",
+    sluge: "ai-ml-expo",
+    location: "London, UK",
+    date: "May 21, 2025",
+    time: "9:30 AM - 6:00 PM",
+  },
+  {
+    image: "/images/event4.png",
+    title: "Startup Pitch Night",
+    sluge: "startup-pitch-night",
+    location: "New York City, NY",
+    date: "June 11, 2025",
+    time: "7:00 PM - 10:30 PM",
+  },
+  {
+    image: "/images/event5.png",
+    title: "React Native Conference",
+    sluge: "react-native-conference",
+    location: "Toronto, Canada",
+    date: "August 5, 2025",
+    time: "9:00 AM - 5:30 PM",
+  },
+  {
+    image: "/images/event6.png",
+    title: "Design & UX Workshop",
+    sluge: "design-ux-workshop",
+    location: "Berlin, Germany",
+    date: "September 19, 2025",
+    time: "1:00 PM - 6:00 PM",
+  },
+];
+export {EVENTS};
