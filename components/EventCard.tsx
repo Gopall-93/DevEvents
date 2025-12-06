@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+
 interface Props{
     title:string,
     image:string,
@@ -12,8 +12,25 @@ interface Props{
 
 const EventCard = ({title,image,sluge,location,date,time}:Props) => {
   return (
-    <Link href={`/events`} id='event-card'>
+    <Link href={`/events/${sluge}`} id='event-card'>
         <Image src={image} alt={title} width={410} height={300} className='poster'/>
+        <div className='flex fles-row gap-2'>
+            <Image src="/icons/pin.svg" alt='location' width={14} height={14}/>
+            <p>{location}</p>
+        </div>
+        <p className='title'>{title}</p>
+
+        <div className='datetime'>
+            <div>
+                <Image src="/icons/calendar.svg" alt='date' width={14} height={14}/>
+            <p>{date}</p>
+            </div>
+            <div>
+                <Image src="/icons/clock.svg" alt='time' width={14} height={14}/>
+            <p>{time}</p>
+            </div>
+        </div>
+        
     </Link>
   )
 }
