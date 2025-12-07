@@ -1,6 +1,6 @@
 import BookEvent from '@/components/BookEvent'
 import EventCard from '@/components/EventCard'
-import { IEvent } from '@/DataBase/event.model'
+import { IEvent } from '@/database/event.model'
 import { getSimilarEventBySlug } from '@/lib/actions/event.actions'
 import { cacheLife } from 'next/cache'
 import Image from 'next/image'
