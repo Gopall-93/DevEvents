@@ -6,7 +6,7 @@ const EventDetailsPage = async({params}:{params:Promise<{slug:string}>}) => {
     return(
         <main>
             <Suspense fallback={<div>loading...</div>}>
-                <EventDetails params={slug}/>
+            <EventDetails params={slug}/>
             </Suspense>
             
         </main>
