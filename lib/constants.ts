@@ -1,4 +1,4 @@
-const EVENTS = [
+const events = [
   {
     image: "/images/event1.png",
     title: "Tech Innovators Summit 2025",
@@ -48,4 +48,4 @@ const EVENTS = [
     time: "1:00 PM - 6:00 PM",
   },
 ];
-export {EVENTS};
+export {events};
