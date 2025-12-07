@@ -1,14 +1,13 @@
 import BookEvent from '@/components/BookEvent'
 import EventCard from '@/components/EventCard'
 import { IEvent } from '@/database/event.model'
-import { getSimilarEventBySlug } from '@/lib/actions/event.actions'
+import { getSimilarEventBySlug,getEventBySlug } from '@/lib/actions/event.actions'
 import { cacheLife } from 'next/cache'
 
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 const EventDetailItem = ({icon,alt,label}:{icon:string,alt:string,label:string})=>(
     <div className='flex-row-gap-2 items-center'>
@@ -43,18 +42,8 @@ const EventDetails = async({params}:{params:Promise<string>}) => {
     'use cache'
     cacheLife('hours')
     const slug = await params
-  let events;
-    try {
-        const request = await fetch(`${BASE_URL}/api/events/${slug}`,{next:{revalidate:60}})
-        if(!request.ok){
-            if(request.status===404){
-                return notFound()
-            }
-            throw new Error(`Failed to fetch event: ${request.statusText}`)
-        }
-        const response = await request.json()
-        events =response.event;
-
+    const events = await getEventBySlug(slug);
+  try{
         if(!events){
             return notFound()
         }

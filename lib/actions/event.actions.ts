@@ -18,3 +18,19 @@ export const getSimilarEventBySlug = async(slug:string)=>{
         return[]
     }
 }
+export async function getEventBySlug(slug: string) {
+  try {
+    await connectDB();
+    
+    // Find the event by slug
+    const event = await Event.findOne({ slug });
+    
+    if (!event) return null;
+
+    // Convert to plain JSON object
+    return JSON.parse(JSON.stringify(event));
+  } catch (error) {
+    console.error("Error getting event by slug:", error);
+    return null;
+  }
+}
