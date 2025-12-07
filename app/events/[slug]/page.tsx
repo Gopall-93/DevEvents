@@ -2,6 +2,7 @@ import BookEvent from '@/components/BookEvent'
 import EventCard from '@/components/EventCard'
 import { IEvent } from '@/DataBase/event.model'
 import { getSimilarEventBySlug } from '@/lib/actions/event.actions'
+import { cacheLife } from 'next/cache'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -39,6 +40,8 @@ const EventTags=({tags}:{tags:string[]})=>(
 )
 
 const EventDetailsPage = async({params}:{params:Promise<{slug:string}>}) => {
+    'use cache'
+    cacheLife('hours')
     const {slug} = await params
 
     let events;
@@ -61,7 +64,7 @@ const EventDetailsPage = async({params}:{params:Promise<{slug:string}>}) => {
         return notFound();
     }
     
-    const {description,image,overview,date,time,mode,agenda,location,audience,tags,organizer} = events
+    const {description,image,overview,date,time,mode,agenda,location,audience,tags,organizer,_id} = events
 
     if(!description) return notFound();
 
@@ -113,7 +116,7 @@ const EventDetailsPage = async({params}:{params:Promise<{slug:string}>}) => {
                         )
                         
                     }
-                    <BookEvent/>
+                    <BookEvent slug={slug} eventId={_id} />
                 </div>
             </aside>
         </div>

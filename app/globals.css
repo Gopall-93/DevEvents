@@ -270,4 +270,106 @@
       }
     }
   }
+  #create-event {
+    @apply glass card-shadow rounded-[10px] border border-dark-200 p-8 flex flex-col gap-10 w-full max-w-3xl mx-auto backdrop-blur-xl bg-[#12121280];
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  #create-event h1 {
+    @apply text-gradient text-4xl font-semibold max-sm:text-3xl;
+  }
+
+  #create-event form {
+    @apply flex flex-col gap-8;
+  }
+
+  /* ---------- Form Field Styling ---------- */
+  #create-event .form-group {
+    @apply flex flex-col gap-2;
+  }
+
+  #create-event .form-group label {
+    @apply text-light-100 font-medium tracking-wide;
+  }
+
+  #create-event .form-group input,
+  #create-event .form-group select,
+  #create-event .form-group textarea {
+    @apply bg-dark-200 rounded-md px-5 py-2.5 text-light-100 
+      placeholder:text-light-200 border border-dark-200
+      outline-none transition-all duration-200
+      focus:border-primary focus:ring-2 focus:ring-primary/40;
+  }
+
+  /* ---------- Agenda + Tags Section ---------- */
+  #create-event .list-container {
+    @apply flex flex-col gap-3;
+  }
+
+  #create-event .list-container label {
+    @apply text-light-100 font-medium tracking-wide;
+  }
+
+  #create-event .inline-input {
+    @apply flex items-center gap-3 w-full;
+  }
+
+  #create-event .inline-input input {
+    @apply flex-1;
+  }
+
+  #create-event .inline-input button {
+    @apply bg-primary text-black px-4 py-2 rounded-md text-sm font-semibold hover:bg-primary/90 transition-all duration-200;
+  }
+
+  #create-event .chips {
+    @apply flex gap-2 flex-wrap;
+  }
+
+  #create-event .chip {
+    @apply bg-dark-200 border border-dark-200 px-4 py-1 rounded-full text-xs text-light-100 cursor-pointer transition-all duration-200 hover:bg-dark-100 hover:border-light-200;
+    animation: popIn 0.2s ease-in-out;
+  }
+
+  /* ---------- Submit Button ---------- */
+  #create-event button[type="submit"] {
+    @apply bg-primary hover:bg-primary/90 transition-all duration-200 
+      w-full cursor-pointer flex items-center justify-center rounded-[6px] 
+      px-4 py-3 text-lg font-semibold text-black shadow-md hover:shadow-xl;
+  }
+
+  /* ---------- Status Message ---------- */
+  #create-event p.message {
+    @apply text-center text-light-100 text-sm font-medium;
+  }
+
+  /* ---------- Animations ---------- */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes popIn {
+    from {
+      transform: scale(0.85);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .chip {
+    transition: all 0.2s ease;
+  }
+  .chip.removing {
+    opacity: 0;
+    transform: scale(0.85);
+  }
 }
